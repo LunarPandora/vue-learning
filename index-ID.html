@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  </head>
+  <body id="app">
+    <div class="container-fluid px-4 py-3">
+      <div class="row">
+        <div class="col-12">
+          <!-- Munculkan judul web disini -->
+          <h1>{{ title }}</h1>
+          
+          <!-- Gunakan v-model untuk mengubah data nama dibawah. (Directive Data Binding) -->
+          <p>Namaku {{ nama }}</p>
+          <input type="text" placeholder="Masukkan nama mu disini" v-model="nama">
+
+          <div class="mt-3">
+            <!-- Gunakan v-if, v-else-if, dan v-else untuk menampilkan sebuah elemen dengan kondisi yang telah ditentukan. (Directive Conditional Rendering) -->
+            <!-- Penerapan directive tersebut bisa dilihat dari contoh dibawah. -->
+
+            <!-- Jika isEnabled true, maka ini akan muncul. Elemen dibawah if seperti else-if dan else akan diabaikan -->
+            <!-- Namun jika isEnabled false, maka ini tidak akan muncul dan skip ke else-if atau else berikutnya. -->
+            <p class="alert alert-primary" v-if="isEnabled">Ini isEnabled.</p>
+
+            <!-- Jika isEnabled2 true, maka ini akan muncul. Elemen dibawah if seperti else-if dan else akan diabaikan -->
+            <!-- Namun jika isEnabled2 false, maka ini tidak akan muncul dan skip ke else-if atau else berikutnya. -->
+            <p class="alert alert-success" v-else-if="isEnabled2">Ini adalah isEnabled2.</p>
+
+            <!-- Jika kedua nilai sebelumnya false, maka ini yang akan muncul. -->
+            <p class="alert alert-danger" v-else>isEnabled dan isEnabled2 bernilai false.</p>
+          </div>
+
+          <!-- Gunakan v-for untuk melakukan sebuah repetisi (repetition) atau pengulangan untuk memanggil data. -->
+          <div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID Barang</th>
+                  <th>Nama Barang</th>
+                  <th>Harga Barang</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in belanjaan">
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.nama_barang }}</td>
+                  <td>{{ item.harga }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <login-form title="Form login 2" :ada-username="true" />
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      let app = Vue.createApp({
+        data(){
+          return {
+            title: 'Judul web',
+            nama: 'Budi',
+            count: 0,
+            isEnabled : false,
+            isEnabled2 : false,
+
+            belanjaan : [
+              {
+                id: 1,
+                nama_barang: "Susu",
+                harga : 5000
+              },
+              {
+                id: 2,
+                nama_barang: "Kecap",
+                harga : 7000
+              },
+              {
+                id: 3,
+                nama_barang: "Sambel",
+                harga : 7500
+              }
+            ]
+          }
+        },
+        methods: {
+          tambahCount(p){
+            this.count = this.count + 1
+            console.log(p, this.count)
+          }
+        }
+      })
+
+      app.component('login-form', {
+        props: {
+          title: String,
+          adaUsername: Boolean
+        },
+        template: `
+          <div>
+            <h2>{{ title }}</h2>
+            <form @submit.prevent @submit="kirimData">
+
+              <input type="username" v-if="adaUsername" placeholder="Username"><br>
+
+              <input type="email" v-model="email" placeholder="Email"><br>
+              <input type="password" v-model="password" placeholder="Password"><br>
+              <button>Login</button>
+            </form>
+          </div>
+        `,
+        data(){
+          return {
+            email: "",
+            password: ""
+          }
+        },
+        methods: {
+          kirimData(){
+            console.log(this.email, this.password)
+          }
+        }
+      })
+
+      app.mount('#app')
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
