@@ -14,17 +14,28 @@
     <div class="container-fluid px-4 py-3">
       <div class="row">
         <div class="col-12">
-          <!-- Munculkan judul web disini -->
+          <!-- Untuk memanggil sebuah data dari Vue, gunakan double curly bracket (2 kurung kurawal). -->
+          <!-- Contoh : {{ nama_key_dalam_data }}-->
+
+          <!-- Munculkan judul web disini. -->
           <h1>{{ title }}</h1>
+
+
+          <!-- ############################################################################################### -->
           
+
           <!-- Gunakan v-model untuk mengubah data nama dibawah. (Directive Data Binding) -->
           <p>Namaku {{ nama }}</p>
           <input type="text" placeholder="Masukkan nama mu disini" v-model="nama">
 
-          <div class="mt-3">
-            <!-- Gunakan v-if, v-else-if, dan v-else untuk menampilkan sebuah elemen dengan kondisi yang telah ditentukan. (Directive Conditional Rendering) -->
-            <!-- Penerapan directive tersebut bisa dilihat dari contoh dibawah. -->
 
+          <!-- ############################################################################################### -->
+
+
+          <!-- Gunakan v-if, v-else-if, dan v-else untuk menampilkan sebuah elemen dengan kondisi yang telah ditentukan. (Directive Conditional Rendering) -->
+          <!-- Penerapan directive tersebut bisa dilihat dari contoh dibawah. -->
+
+          <div class="mt-3">
             <!-- Jika isEnabled true, maka ini akan muncul. Elemen dibawah if seperti else-if dan else akan diabaikan -->
             <!-- Namun jika isEnabled false, maka ini tidak akan muncul dan skip ke else-if atau else berikutnya. -->
             <p class="alert alert-primary" v-if="isEnabled">Ini isEnabled.</p>
@@ -37,7 +48,12 @@
             <p class="alert alert-danger" v-else>isEnabled dan isEnabled2 bernilai false.</p>
           </div>
 
-          <!-- Gunakan v-for untuk melakukan sebuah repetisi (repetition) atau pengulangan untuk memanggil data. -->
+
+          <!-- ############################################################################################### -->
+
+
+          <!-- Gunakan v-for untuk melakukan sebuah repetisi (repetition) atau pengulangan untuk memanggil data. (Directive Repetition / Looping) -->
+          <!-- Data yang dipanggil dapat berbentuk array maupun object. -->
           <div>
             <table class="table table-striped">
               <thead>
@@ -48,7 +64,10 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- Kita akan memanggil setiap Object pada array belanjaan dan memanggil setiap elemen nya menggunakan v-for.-->
+                <!-- Setiap Object yang ada didalam array belanjaan akan kita sebut sebagai "item".-->
                 <tr v-for="item in belanjaan">
+                  <!-- Karena data berbentuk Object, maka panggil value berdasarkan key yang sudah ada. -->
                   <td>{{ item.id }}</td>
                   <td>{{ item.nama_barang }}</td>
                   <td>{{ item.harga }}</td>
@@ -57,6 +76,8 @@
             </table>
           </div>
 
+
+          <!-- ############################################################################################### -->
           <login-form title="Form login 2" :ada-username="true" />
         </div>
       </div>
