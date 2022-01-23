@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   </head>
+
+  <!-- Ini adalah element yang akan dikontrol oleh Vue. -->
   <body id="app">
     <div class="container-fluid px-4 py-3">
       <div class="row">
@@ -33,7 +35,7 @@
 
 
           <!-- Gunakan v-if, v-else-if, dan v-else untuk menampilkan sebuah elemen dengan kondisi yang telah ditentukan. (Directive Conditional Rendering) -->
-          <!-- Penerapan directive tersebut bisa dilihat dari contoh dibawah. -->
+          <!-- Penerapan directive tersebut bisa dilihat dari contoh dibawah. --> 
 
           <div class="mt-3">
             <!-- Jika isEnabled true, maka ini akan muncul. Elemen dibawah if seperti else-if dan else akan diabaikan -->
@@ -78,14 +80,39 @@
 
 
           <!-- ############################################################################################### -->
-          <login-form title="Form login 2" :ada-username="true" />
+
+
+          <!-- Gunakan v-on untuk mengeksekusi sebuah function atau method dalam app Vue saat sebuah event dijalankan. (Directive Event Listening) -->
+          <div class="card">
+            <div class="card-body">
+              <p>Tombol ditekan sebanyak {{ count }} kali.</p>
+              <br>
+              <p>Klik kiri untuk menambah, klik kanan untuk mengurangi.</p>
+  
+              <!-- Masukkan function yang akan dieksekusi nantinya pada directive v-on. -->
+              <!-- Gunakan modifier (.) untuk mendengarkan event khusus. -->
+              <button class="btn btn-info" v-on:click="tambahCount" v-on:click.right="count = count - 1">Tekan tombol ini</button>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col-3">
+              <login-form title="Form login 2" :ada-username="true" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
     
+    <!-- Kita dapat menggunakan Vue untuk pembelajaran dengan cara meng-include Vue dengan link CDN. -->
     <script src="https://unpkg.com/vue@next"></script>
     <script>
+      // Untuk menggunakan Vue, mari kita menginisialisasikan Vue App dalam sebuah variable app.
       let app = Vue.createApp({
+
+        // Untuk menyimpan data, buat sebuah function bernama data() dan kembalikan valuenya dalam bentuk Object.
+        // Dalam Object tersebut itulah kita akan menambahkan data yang akan kita gunakan.
+        // Data disimpan dalam bentuk key-value pair.
         data(){
           return {
             title: 'Judul web',
@@ -93,7 +120,6 @@
             count: 0,
             isEnabled : false,
             isEnabled2 : false,
-
             belanjaan : [
               {
                 id: 1,
@@ -113,45 +139,68 @@
             ]
           }
         },
+
+        // Kita juga dapat menambahkan methods yang dapat digunakan nantinya dalam Vue App kita.
+        // Untuk menambahkan function dalam methods di Vue, buat sebuah key bernama methods dan kembalikan dalam bentuk Object.
+        // Dalam Object tersebut itu nantilah kita dapat mulai menambahkan function yang dapat kita gunakan.
         methods: {
-          tambahCount(p){
+          tambahCount(){
+            // Untuk mengakses data yang ada dalam Object data(), maka gunakan keyword this.
             this.count = this.count + 1
-            console.log(p, this.count)
           }
         }
       })
 
+      // Kita juga dapat membuat component kita sendiri yang dapat digunakan dalam Vue App yang kita gunakan.
+      // Caranya adalah dengan memanggil Vue App yang kita sudah inisialisasi di awal dan menyatakan component baru.
+      // Dalam contoh dibawah ini, nama component yang akan kita gunakan adalah login-form.
+      // Untuk menggunakan component ini nantinya kita cukup memanggil nama component yang sudah kita tentukan di awal.
       app.component('login-form', {
+
+        // Supaya kita dapat menggunakan props seperti layaknya component bawaan HTML, kita juga dapat menyatakan props dalam custom component kita.
+        // Caranya, buat sebuah key bernama props dan masukkan props yang ingin kita gunakan beserta tipe datanya.
         props: {
           title: String,
           adaUsername: Boolean
         },
+
+        // Salah satu kelebihan dari Vue adalah kemampuannya untuk membuat sebuah custom component yang dapat kita gunakan berulang kali (Reusable Component).
+        // Setiap kita memanggil component baru, sebuah instance baru pun tercipta.
+        // Artinya, semua value yang kita masukkan di setiap component memiliki instance tersendiri dan terpisah dari yang lain.
+        // Kita dapat membuat sebuah template di component kita, yang nantinya jika kita memanggil component tersebut di HTML, maka yang kita buat di template akan dirender di HTML kita.
         template: `
-          <div>
-            <h2>{{ title }}</h2>
-            <form @submit.prevent @submit="kirimData">
-
-              <input type="username" v-if="adaUsername" placeholder="Username"><br>
-
-              <input type="email" v-model="email" placeholder="Email"><br>
-              <input type="password" v-model="password" placeholder="Password"><br>
-              <button>Login</button>
-            </form>
+          <div class="card">
+            <div class="card-body">
+              <h2>{{ title }}</h2>
+              <form @submit.prevent @submit="kirimData">
+                <input type="username" class="form-control mb-2" v-if="adaUsername" v-model="username" placeholder="Username">
+                <input type="email" class="form-control mb-2" v-model="email" placeholder="Email">
+                <input type="password" class="form-control mb-2" v-model="password" placeholder="Password">
+                <button class="btn btn-primary">Login</button>
+              </form>
+            </div>
           </div>
         `,
+
+        // Cara membuat data yang dapat digunakan di component kita sama seperti saat kita menyatakan main component Vue kita.
         data(){
           return {
+            username: "",
             email: "",
             password: ""
           }
         },
+
+        // Hal itu juga berlaku untuk pembuatan methods dalam component kita.
         methods: {
           kirimData(){
-            console.log(this.email, this.password)
+            console.log(this.username, this.email, this.password)
           }
         }
       })
 
+      // Untuk menerapkan / meng-mount Vue dalam HTML kita, kita memerlukan elemen yang nantinya akan digunakan oleh Vue untuk melakukan eksekusi DOM pada HTML.
+      // Dalam contoh kali ini, kita memiliki body ber-id "app" yang akan kita kontrol semua element didalamnya mengguanakan Vue.
       app.mount('#app')
     </script>
 
