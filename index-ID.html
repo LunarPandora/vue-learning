@@ -8,7 +8,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
   </head>
 
   <!-- Ini adalah element yang akan dikontrol oleh Vue. -->
@@ -17,7 +16,7 @@
       <div class="row">
         <div class="col-12">
           <!-- Untuk memanggil sebuah data dari Vue, gunakan double curly bracket (2 kurung kurawal). -->
-          <!-- Contoh : {{ nama_key_dalam_data }}-->
+          <!-- Contoh : {{ nama_key_dalam_data }} -->
 
           <!-- Munculkan judul web disini. -->
           <h1>{{ title }}</h1>
@@ -26,10 +25,10 @@
           <!-- ############################################################################################### -->
           
 
-          <!-- Gunakan v-model untuk mengubah data nama dibawah. (Directive Data Binding) -->
+          <!-- Gunakan v-bind dan v-model untuk mengubah data nama dan judul web dibawah. (Directive Data Binding) -->
           <p>Namaku {{ nama }}</p>
-          <input type="text" placeholder="Masukkan nama mu disini" v-model="nama">
-
+          <input type="text" class="form-control mb-2" placeholder="Masukkan nama mu disini" v-model="nama">
+          <input type="text" class="form-control" placeholder="Masukkan judul web disini" v-bind:value="title">
 
           <!-- ############################################################################################### -->
 
@@ -46,7 +45,7 @@
             <!-- Namun jika isEnabled2 false, maka ini tidak akan muncul dan skip ke else-if atau else berikutnya. -->
             <p class="alert alert-success" v-else-if="isEnabled2">Ini adalah isEnabled2.</p>
 
-            <!-- Jika kedua nilai sebelumnya false, maka ini yang akan muncul. -->
+            <!-- Jika semua nilai sebelumnya false, maka ini yang akan muncul. -->
             <p class="alert alert-danger" v-else>isEnabled dan isEnabled2 bernilai false.</p>
           </div>
 
@@ -91,7 +90,7 @@
   
               <!-- Masukkan function yang akan dieksekusi nantinya pada directive v-on. -->
               <!-- Gunakan modifier (.) untuk mendengarkan event khusus. -->
-              <button class="btn btn-info" v-on:click="tambahCount" v-on:click.right="count = count - 1">Tekan tombol ini</button>
+              <button class="btn btn-info" v-on:click="count = count + 1" v-on:click.right="count = count - 1">Tekan tombol ini</button>
             </div>
           </div>
 

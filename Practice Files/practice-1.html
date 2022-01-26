@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body id="app">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-5 py-3">
+        <a class="navbar-brand" href="#">Read N' Tell</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation"></button>
+            
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Booklist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid px-5 py-3">
+        <div class="row">
+            <div class="card-deck">
+                <div class="card text-left" v-for="book in booklist">
+                    <img class="card-img-top img-fluid" :src="book.image_link">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ book.nama_buku }}</h4>
+                        <div class="card-text">
+                            <p>
+                                Price : Rp{{ book.harga }}<br>
+                                Penulis : {{ book.penulis }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){
+                return {
+                    title : "Read N' Tell",
+                    booklist : [
+                        {
+                            id : 1,
+                            nama_buku : "Laskar Pelangi",
+                            harga : 130000,
+                            image_link : "https://upload.wikimedia.org/wikipedia/id/8/8e/Laskar_pelangi_sampul.jpg",
+                            penulis : "Andrea Hirata"
+                        },
+                        {
+                            id : 2,
+                            nama_buku : "Doraemon, Vol. 17",
+                            harga : 70000,
+                            image_link : "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1234166451l/6131681.jpg",
+                            penulis : "Fujiko F. Fujio"
+                        },
+                        {
+                            id : 3,
+                            nama_buku : "Harry Potter and The Deathly Hallows",
+                            harga : 160000,
+                            image_link : "https://upload.wikimedia.org/wikipedia/id/5/56/Harry_potter_deathly_hallows_US.jpg",
+                            penulis : "J. K. Rowling"
+                        }
+                    ]
+                }
+            },   
+        })
+
+        app.mount("#app")
+    </script>
+  </body>
+</html>
